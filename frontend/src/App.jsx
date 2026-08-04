@@ -78,7 +78,7 @@ export default function App() {
       <section className="hero" id="home">
         <div className="hero-orb" />
         <p className="hero-kicker"><span /> Available for new ideas</p>
-        <h1>Hi, I’m <ScrambleName text="Daksh Pratap Singh." /></h1>
+        <h1>Hi, I’m<br /><ScrambleName text="Daksh Pratap Singh." /></h1>
         <p className="hero-intro">{profile.intro} <strong>I build digital experiences</strong> with an appetite for web, AI, and creative technology.</p>
         <div className="hero-buttons"><button className="button button-primary" onClick={() => goTo('Projects')}>Explore work <ArrowUpRight size={18} /></button><button className="button button-secondary" onClick={() => goTo('Contact')}>Let’s connect</button></div>
         <button className="scroll-cue" onClick={() => goTo('About')} aria-label="Scroll to about"><span>Scroll to discover</span><ArrowDown size={18} /></button>
