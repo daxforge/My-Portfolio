@@ -8,6 +8,50 @@ function Mesh() {
   return <div className="mesh" aria-hidden="true"><i /><i /><i /><svg viewBox="0 0 1200 760" preserveAspectRatio="none"><path d="M0 190 L160 80 L330 260 L510 95 L720 220 L915 45 L1200 180 M0 585 L190 460 L355 675 L540 480 L720 645 L925 420 L1200 575" /><path d="M160 80 L190 460 M330 260 L355 675 M510 95 L540 480 M720 220 L720 645 M915 45 L925 420" /></svg></div>;
 }
 
+function ScrambleName({ text }) {
+  const [displayText, setDisplayText] = useState(text);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const glitchChars = '010101<>[]{}-_\\/+=*^?#@!&%';
+
+  const triggerScramble = () => {
+    if (isHovered) return;
+    setIsHovered(true);
+    let iteration = 0;
+    const interval = setInterval(() => {
+      setDisplayText(
+        text
+          .split('')
+          .map((char, index) => {
+            if (index < iteration) {
+              return text[index];
+            }
+            if (char === ' ') return ' ';
+            return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+          })
+          .join('')
+      );
+
+      if (iteration >= text.length) {
+        clearInterval(interval);
+        setIsHovered(false);
+      }
+      iteration += 1 / 2.5;
+    }, 25);
+  };
+
+  useEffect(() => {
+    triggerScramble();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <span onMouseEnter={triggerScramble} style={{ cursor: 'pointer' }}>
+      {displayText}
+    </span>
+  );
+}
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -28,13 +72,13 @@ export default function App() {
       <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
         <button className="brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>D<span>•</span>P</button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>{navItems.map((item) => <button key={item} onClick={() => goTo(item)}>{item}</button>)}</div>
-        <div className="nav-actions"><a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={18} /></a><a href="mailto:hello@dakshpratapsingh.dev" aria-label="Email"><Mail size={18} /></a><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</button></div>
+        <div className="nav-actions"><a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={18} /></a><a href={`mailto:${profile.email}`} aria-label="Email"><Mail size={18} /></a><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</button></div>
       </nav>
 
       <section className="hero" id="home">
         <div className="hero-orb" />
         <p className="hero-kicker"><span /> Available for new ideas</p>
-        <h1>Hi, I’m <span>Daksh<br />Pratap Singh.</span></h1>
+        <h1>Hi, I’m <ScrambleName text="Daksh Pratap Singh." /></h1>
         <p className="hero-intro">{profile.intro} <strong>I build digital experiences</strong> with an appetite for web, AI, and creative technology.</p>
         <div className="hero-buttons"><button className="button button-primary" onClick={() => goTo('Projects')}>Explore work <ArrowUpRight size={18} /></button><button className="button button-secondary" onClick={() => goTo('Contact')}>Let’s connect</button></div>
         <button className="scroll-cue" onClick={() => goTo('About')} aria-label="Scroll to about"><span>Scroll to discover</span><ArrowDown size={18} /></button>
@@ -57,7 +101,7 @@ export default function App() {
       <section id="skills" className="section skills-section"><SectionHeading eyebrow="05 / Toolkit" title="Tools I’m working with." /><div className="skill-marquee"><div>{[...skills, ...skills].map((skill, index) => <span key={`${skill}-${index}`}>{skill}<b>✦</b></span>)}</div></div></section>
 
       <section id="contact" className="section contact-section"><ContactForm /></section>
-      <footer><span>© {new Date().getFullYear()} Daksh Pratap Singh</span><div><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:hello@dakshpratapsingh.dev">Email</a><a href="#home">Back to top ↑</a></div></footer>
+      <footer><span>© {new Date().getFullYear()} Daksh Pratap Singh</span><div><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={`mailto:${profile.email}`}>Email</a><a href="#home">Back to top ↑</a></div></footer>
     </main>
   );
 }

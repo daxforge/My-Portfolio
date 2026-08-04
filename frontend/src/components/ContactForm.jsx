@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Send } from 'lucide-react';
+import { profile } from '../data/portfolio';
 
 const initialForm = { name: '', email: '', message: '' };
 
@@ -29,7 +30,7 @@ export default function ContactForm() {
         <span className="eyebrow">Start a conversation</span>
         <h2>Have an idea worth building?</h2>
         <p>I’m always open to learning opportunities, interesting projects, and conversations with thoughtful people.</p>
-        <a className="contact-link" href="mailto:hello@dakshpratapsingh.dev">hello@dakshpratapsingh.dev <ArrowUpRight size={18} /></a>
+        <a className="contact-link" href={`mailto:${profile.email}`}>{profile.email} <ArrowUpRight size={18} /></a>
       </div>
       <form className="contact-form reveal" onSubmit={submit}>
         <label>Name<input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" /></label>
