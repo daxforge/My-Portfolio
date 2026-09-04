@@ -323,10 +323,11 @@ header {
 h1 {
   margin: 0;
   max-width: 100%;
-  letter-spacing: -.07em;
-  line-height: .98;
+  letter-spacing: -.05em;
+  line-height: 1.15;
   font-size: clamp(38px, 7.5vw, 84px);
   font-weight: 800;
+  overflow: visible;
 }
 
 h1 span {
@@ -335,12 +336,21 @@ h1 span {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+  padding-right: 0.08em;
+  overflow: visible;
+  line-height: 1.18;
 }
 
 .scramble-name {
   cursor: pointer;
   border-radius: 4px;
-  padding: 0 4px;
+  padding: 0 0.08em 0.18em 0.04em;
+  margin-bottom: -0.18em;
+  display: inline-block;
+  overflow: visible;
+  vertical-align: baseline;
 }
 
 .hero-role-lead {

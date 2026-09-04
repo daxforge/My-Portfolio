@@ -156,7 +156,7 @@ export default function App() {
             <button
               className="nav-resume-btn"
               onClick={() => setResumeOpen(true)}
-              aria-label="View résumé"
+              aria-label="View resume"
             >
               <FileText size={15} /> Resume
             </button>
