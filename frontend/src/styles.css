@@ -973,7 +973,7 @@ h1 span {
 .focus-card svg { color: #6ee2fa; }
 .focus-card h3 { font-size: 22px; letter-spacing: -.04em; margin: 32px 0 8px; }
 .focus-card p { max-width: 360px; color: #979ba8; font-size: 14px; line-height: 1.6; margin: 0; }
-.focus-card > span { position: absolute; right: 28px; top: 26px; color: #8ce9f8; font-size: 20px; }
+
 
 /* SKILLS SECTION */
 .skills-section {
