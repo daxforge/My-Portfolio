@@ -21,8 +21,10 @@ export default function ContactForm() {
     setState({ type: 'loading', message: 'Sending your note…' });
     setShowFallback(false);
 
-    // Support configured API endpoint (fallback to 5001 where backend runs)
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+    // Support configured API endpoint (dev defaults to localhost:5001, production defaults to same-origin)
+    const apiUrl = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== ''
+      ? import.meta.env.VITE_API_URL
+      : (import.meta.env.DEV ? 'http://localhost:5001' : '');
 
     // 5-second timeout to prevent hanging on offline server
     const controller = new AbortController();

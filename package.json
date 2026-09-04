@@ -1,13 +1,16 @@
 {
-  "name": "daksh-portfolio-monorepo",
+  "name": "daksh-portfolio",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "start": "node backend/src/server.js",
     "dev": "npm --prefix backend run dev & npm --prefix frontend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
-    "dev:backend": "npm --prefix backend run dev",
-    "install:all": "npm --prefix frontend install && npm --prefix backend install",
-    "build": "npm --prefix frontend run build",
-    "start": "npm --prefix backend start"
+    "dev:backend": "npm --prefix backend run dev"
   }
 }

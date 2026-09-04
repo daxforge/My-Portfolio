@@ -2,6 +2,9 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +34,19 @@ app.post('/api/contact', async (req, res) => {
     return res.status(500).json({ message: 'Something went wrong. Please try again shortly.' });
   }
 });
+
+// Serve frontend build if present (for single-service fullstack deployment on Render/Heroku)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDistPath = path.resolve(__dirname, '../../frontend/dist');
+
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  });
+}
 
 async function start() {
   if (process.env.MONGODB_URI) {
