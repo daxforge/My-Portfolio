@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Download, ExternalLink, Mail, Phone, Printer, X, MapPin } from 'lucide-react';
+import { ExternalLink, Mail, Phone, Printer, X, MapPin } from 'lucide-react';
 import { profile } from '../data/portfolio';
 
 export default function ResumeModal({ isOpen, onClose }) {
@@ -72,7 +72,7 @@ export default function ResumeModal({ isOpen, onClose }) {
         <button
           className="dialog-close-button"
           onClick={() => dialogRef.current?.close()}
-          aria-label="Close résumé preview"
+          aria-label="Close resume preview"
         >
           <X size={20} />
         </button>
@@ -80,83 +80,148 @@ export default function ResumeModal({ isOpen, onClose }) {
 
       <div className="resume-document printable-resume">
         <header className="resume-doc-header">
-          <h1 id="resume-dialog-title">{profile.name}</h1>
-          <p className="resume-role">{profile.heroRole}</p>
+          <h1 id="resume-dialog-title">DAKSH PRATAP SINGH</h1>
           <div className="resume-contact-strip">
-            <span><MapPin size={13} /> {profile.location}</span>
-            <a href={`mailto:${profile.email}`}><Mail size={13} /> {profile.email}</a>
-            <a href={profile.github} target="_blank" rel="noreferrer">GitHub: @daxforge</a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn Profile</a>
+            <a href="mailto:pratapdaksh007@gmail.com"><Mail size={13} /> pratapdaksh007@gmail.com</a>
+            <a href="tel:+918077232213"><Phone size={13} /> +91 8077232213</a>
+            <span><MapPin size={13} /> Greater Noida, India</span>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </header>
 
+        {/* SUMMARY */}
         <section className="resume-doc-section">
-          <h3>Education</h3>
-          <div className="resume-item">
-            <div className="resume-item-top">
-              <strong>B.Tech in Computer Science & Engineering</strong>
-              <span>2025 — 2029</span>
-            </div>
-            <p className="resume-sub">Galgotias University · Greater Noida, India</p>
-            <p className="resume-desc">Key coursework: Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Computer Networks.</p>
-          </div>
+          <h3>Summary</h3>
+          <p className="resume-summary-text">
+            Skilled Front End Developer with hands-on experience in responsive design and JavaScript. Enhanced UI/UX for a newsletter platform, optimizing performance and user engagement. Delivered scalable web solutions through effective collaboration. Proficient in JavaScript, CSS, and React, with strong problem-solving abilities.
+          </p>
         </section>
 
+        {/* TECHNICAL SKILLS */}
         <section className="resume-doc-section">
           <h3>Technical Skills</h3>
-          <div className="resume-skills-list">
-            <p><strong>Languages:</strong> JavaScript (ES6+), TypeScript, Java, Python, C/C++, HTML5, CSS3</p>
-            <p><strong>Frameworks & Libraries:</strong> React, Node.js, Express.js, Vite, Spring Boot, Tailwind CSS</p>
-            <p><strong>Databases & Cloud:</strong> MongoDB, MySQL, Mongoose, RESTful APIs, Vercel, Render</p>
-            <p><strong>Tools & Practices:</strong> Git, GitHub, High-Performance Computing (HPC), AI/LLM API integration, Figma</p>
+          <div className="resume-skills-grid">
+            <p><strong>Languages:</strong> JavaScript, TypeScript, Python, C++, C, HTML, CSS</p>
+            <p><strong>Frameworks:</strong> React.js, Next.js, Tailwind CSS</p>
+            <p><strong>Tools:</strong> Git, GitHub, VS Code</p>
+            <p><strong>Concepts:</strong> Responsive Design, API Integration, DOM Manipulation</p>
           </div>
         </section>
 
+        {/* EXPERIENCE */}
         <section className="resume-doc-section">
-          <h3>Leadership & Club Experience</h3>
+          <h3>Experience</h3>
+
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>Member Technical</strong>
-              <span>2025 — Present</span>
+              <strong>NVIDIA AI &amp; Supercomputing Club – Galgotias University</strong>
+              <span>July 2026 – Present</span>
             </div>
-            <p className="resume-sub">NVIDIA AI & Supercomputing Club | Galgotias University</p>
-            <p className="resume-desc">Exploring HPC, NVIDIA technologies, GPU computing, and AI/ML architectures through technical workshops and hackathons.</p>
+            <p className="resume-sub">Member Technical | Noida, India</p>
+            <ul className="resume-bullets">
+              <li>Explore High-Performance Computing (HPC) concepts and NVIDIA technologies through workshops, technical sessions, and practical implementations.</li>
+              <li>Contribute to a collaborative technical community focused on innovation, knowledge sharing, and building real-world AI solutions.</li>
+            </ul>
           </div>
+
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>Community Member</strong>
-              <span>2025 — Present</span>
+              <strong>GDG On Campus – Galgotias University</strong>
+              <span>Dec 2025 – Present</span>
             </div>
-            <p className="resume-sub">Google Developer Groups (GDG) on Campus · Galgotias University</p>
-            <p className="resume-desc">Engaging with student developers, contributing to open-source initiatives, and collaborating on collegiate software projects.</p>
+            <p className="resume-sub">Frontend Developer | Noida, India</p>
+            <ul className="resume-bullets">
+              <li>Designed and developed frontend features for a newsletter platform using Next.js, React, TypeScript, and Tailwind CSS.</li>
+              <li>Developed dynamic routing and reusable components, enabling scalable content delivery.</li>
+              <li>Enhanced UI/UX by resolving layout issues and optimizing page transitions.</li>
+              <li>Followed GitHub-based collaboration, issue tracking, and pull request best practices.</li>
+            </ul>
+          </div>
+
+          <div className="resume-item">
+            <div className="resume-item-top">
+              <strong>Academic E-commerce Project</strong>
+              <span>June 2024 – July 2024</span>
+            </div>
+            <p className="resume-sub">Frontend Developer | Chandpur, India</p>
+            <ul className="resume-bullets">
+              <li>Built a functional e-commerce website frontend using HTML, CSS, and JavaScript.</li>
+              <li>Developed reusable page sections like product cards, headers, and footers.</li>
+              <li>Applied responsive design principles to support desktop and mobile screens.</li>
+              <li>Improved visual consistency by implementing structured layouts and clean styling.</li>
+            </ul>
           </div>
         </section>
 
+        {/* KEY PROJECTS */}
         <section className="resume-doc-section">
-          <h3>Featured Projects</h3>
+          <h3>Key Projects</h3>
+
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>DailyForge — Full-Stack MERN Routine Planner</strong>
-              <a href="https://github.com/daxforge/DailyForge" target="_blank" rel="noreferrer">github.com/daxforge/DailyForge</a>
+              <strong>Digitised Admission Forms (ML)</strong>
             </div>
-            <p className="resume-desc">Engineered full-stack weekly schedule platform featuring zero-overlap collision algorithm, dynamic drag-and-drop routines, and MongoDB persistence.</p>
+            <ul className="resume-bullets">
+              <li>Digitized admission forms for primary schools, reducing turnaround time by 10x using machine learning concepts.</li>
+            </ul>
           </div>
 
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>AI Spend Audit Tool — LLM Token & Cost Analytics</strong>
-              <a href="https://github.com/daxforge/ai-spend-audit-tool" target="_blank" rel="noreferrer">github.com/daxforge/ai-spend-audit-tool</a>
+              <strong>Handwriting Text Recognition (CV)</strong>
             </div>
-            <p className="resume-desc">Created real-time developer utility for calculating and projecting token costs across disparate LLM providers with actionable optimization metrics.</p>
+            <ul className="resume-bullets">
+              <li>Worked on HTR and OCR using Tesseract and OpenCV to extract characters from forms with 84% accuracy.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* EDUCATION */}
+        <section className="resume-doc-section">
+          <h3>Education</h3>
+
+          <div className="resume-item">
+            <div className="resume-item-top">
+              <strong>Galgotias University</strong>
+              <span>Exp. July 2029</span>
+            </div>
+            <p className="resume-sub">Bachelor of Technology, Computer Science and Engineering | <strong>CGPA: 8.28/10</strong></p>
           </div>
 
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>Eventra — Event Management System (React + Spring Boot)</strong>
-              <a href="https://github.com/daxforge/Eventra" target="_blank" rel="noreferrer">github.com/daxforge/Eventra</a>
+              <strong>Fatherson Senior Secondary Public School</strong>
+              <span>March 2025</span>
             </div>
-            <p className="resume-desc">Collaborated on event platform handling attendee passes, ticketing workflows, and organizer dashboards with high concurrency.</p>
+            <p className="resume-sub">High School &amp; Intermediate</p>
           </div>
+        </section>
+
+        {/* LEADERSHIP */}
+        <section className="resume-doc-section">
+          <h3>Leadership</h3>
+
+          <div className="resume-item">
+            <div className="resume-item-top">
+              <strong>Head Boy</strong>
+              <span>May 2024 – March 2025</span>
+            </div>
+            <ul className="resume-bullets">
+              <li>Represented 1000+ students; coordinated inter-school events and cultural programs.</li>
+              <li>Acted as a bridge between students and school management.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* CERTIFICATIONS */}
+        <section className="resume-doc-section">
+          <h3>Certifications</h3>
+          <ul className="resume-bullets">
+            <li>Develop GenAI Apps with Gemini and Streamlit (Google)</li>
+            <li>Programming in C++ Certification (Newton School of Technology)</li>
+            <li>Certificate of Completion C Programming (HCL GUVI)</li>
+          </ul>
         </section>
       </div>
     </dialog>

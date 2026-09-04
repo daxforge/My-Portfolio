@@ -1414,15 +1414,34 @@ dialog::backdrop {
   line-height: 1.5;
 }
 
-.resume-skills-list p {
-  margin: 6px 0;
+.resume-summary-text {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 4px 0 0;
+}
+
+.resume-skills-grid p {
+  margin: 5px 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.resume-skills-grid strong {
+  color: #f1f5f9;
+}
+
+.resume-bullets {
+  margin: 6px 0 0;
+  padding-left: 18px;
   color: #cbd5e1;
   font-size: 13px;
   line-height: 1.55;
 }
 
-.resume-skills-list strong {
-  color: #e2e8f0;
+.resume-bullets li {
+  margin-bottom: 4px;
 }
 
 /* PRINT MEDIA QUERY FOR CLEAN RESUME EXPORT */
@@ -1471,7 +1490,9 @@ dialog::backdrop {
   }
   .resume-sub,
   .resume-desc,
-  .resume-skills-list p {
+  .resume-summary-text,
+  .resume-skills-grid p,
+  .resume-bullets {
     color: #334155;
   }
 }

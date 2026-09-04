@@ -248,7 +248,7 @@ export default function App() {
               className="button button-secondary"
               onClick={() => setResumeOpen(true)}
             >
-              <Download size={17} /> Download Résumé
+              <Download size={17} /> Download Resume
             </button>
           </div>
 
@@ -451,7 +451,6 @@ export default function App() {
                 <Icon size={24} />
                 <h3>{title}</h3>
                 <p>{text}</p>
-                <span aria-hidden="true">↗</span>
               </article>
             ))}
           </div>
@@ -514,7 +513,7 @@ export default function App() {
               className="footer-resume-link"
               onClick={() => setResumeOpen(true)}
             >
-              Résumé
+              Resume
             </button>
             <a href="#home">Back to top ↑</a>
           </div>
