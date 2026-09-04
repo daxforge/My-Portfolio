@@ -158,7 +158,7 @@ export default function App() {
               onClick={() => setResumeOpen(true)}
               aria-label="View résumé"
             >
-              <FileText size={15} /> Résumé
+              <FileText size={15} /> Resume
             </button>
             <a
               href={profile.github}
