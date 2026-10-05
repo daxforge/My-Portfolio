@@ -15,7 +15,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/daksh-pratap-singh-93a200384',
   github: 'https://github.com/daxforge',
   email: 'pratapdaksh20@gmail.com',
-  avatar: '/avatar.jpg',
+  avatar: '/image.jpeg',
   proofPoints: [
     { label: 'Shipped Projects', value: '4+' },
     { label: 'Open Source Repos', value: '10+' },
@@ -43,7 +43,7 @@ export const principles = [
 
 export const journey = [
   { year: '2025 — now', title: 'Computer Science & Engineering', organization: 'Galgotias University', text: 'Building a strong foundation in programming, algorithms, and modern software development.' },
-  { year: 'Current', title: 'Community & developer programs', organization: 'GDG on Campus · Galgotias University', text: 'Engaging with peers, developer events, and technology communities that turn learning into action.' },
+  { year: '2025-2026', title: 'Community & developer programs', organization: 'GDG on Campus · Galgotias University', text: 'Engaging with peers, developer events, and technology communities that turn learning into action.' },
   { year: 'Current', title: 'Member Technical', organization: 'NVIDIA AI & Supercomputing Club | GU', text: 'Explore HPC, NVIDIA technologies, AI/ML, and GPU computing through hands-on workshops, technical sessions, and real-world projects. Collaborate on hackathons, coding competitions, and innovative AI solutions, while strengthening development, research, and technical skills.' },
 ];
 
