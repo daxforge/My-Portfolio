@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { createClient } from '@supabase/supabase-js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,6 +13,12 @@ const port = process.env.PORT || 5000;
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
 app.use(express.json());
 
+// Initialize Supabase client
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
+
+// MongoDB schema (optional fallback)
 const messageSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true, maxlength: 80 },
   email: { type: String, required: true, trim: true, lowercase: true, maxlength: 120 },
@@ -19,18 +26,47 @@ const messageSchema = new mongoose.Schema({
 }, { timestamps: true });
 const Message = mongoose.model('Message', messageSchema);
 
-app.get('/api/health', (_, res) => res.json({ ok: true }));
+app.get('/api/health', (_, res) => res.json({
+  ok: true,
+  supabase: Boolean(supabase),
+  mongodb: mongoose.connection.readyState === 1,
+}));
 
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
   if (!name || !email || !message) return res.status(400).json({ message: 'Please complete every field.' });
   if (!/^\S+@\S+\.\S+$/.test(email)) return res.status(400).json({ message: 'Please provide a valid email.' });
 
+  let saved = false;
+
   try {
-    if (mongoose.connection.readyState === 1) await Message.create({ name, email, message });
-    else console.info('Contact submission (MongoDB not connected):', { name, email, message });
+    // Save to Supabase
+    if (supabase) {
+      const { error } = await supabase
+        .from('messages')
+        .insert([{ name, email, message }]);
+
+      if (error) {
+        console.error('Supabase error inserting message:', error);
+        throw new Error(error.message || 'Supabase insert failed');
+      }
+      console.log('Successfully saved message to Supabase:', { name, email });
+      saved = true;
+    }
+
+    // Save to MongoDB if connected
+    if (mongoose.connection.readyState === 1) {
+      await Message.create({ name, email, message });
+      saved = true;
+    }
+
+    if (!saved) {
+      console.info('Contact submission (Logged only — neither Supabase nor MongoDB connected):', { name, email, message });
+    }
+
     return res.status(201).json({ message: 'Message received — I’ll get back to you soon.' });
   } catch (error) {
+    console.error('Contact submission error:', error);
     return res.status(500).json({ message: 'Something went wrong. Please try again shortly.' });
   }
 });
@@ -49,9 +85,15 @@ if (fs.existsSync(frontendDistPath)) {
 }
 
 async function start() {
+  if (supabase) {
+    console.log('⚡ Supabase client connected.');
+  } else {
+    console.warn('⚠️ Supabase credentials not found. Add SUPABASE_URL and SUPABASE_ANON_KEY to backend/.env');
+  }
+
   if (process.env.MONGODB_URI) {
     try { await mongoose.connect(process.env.MONGODB_URI); console.log('MongoDB connected'); }
-    catch (error) { console.warn('MongoDB unavailable; contact messages will be logged only.'); }
+    catch (error) { console.warn('MongoDB unavailable.'); }
   }
   app.listen(port, () => console.log(`API running at http://localhost:${port}`));
 }

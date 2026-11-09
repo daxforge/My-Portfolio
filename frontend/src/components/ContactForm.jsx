@@ -47,9 +47,12 @@ export default function ContactForm() {
     } catch (error) {
       clearTimeout(timeoutId);
       const isAbort = error.name === 'AbortError';
+      const isNetwork = error instanceof TypeError || error.message === 'Failed to fetch';
       const errorMsg = isAbort
         ? 'API server timed out. Please send directly via email below.'
-        : 'Backend server is currently offline or unreachable.';
+        : isNetwork
+        ? 'Backend server is currently offline or unreachable.'
+        : error.message || 'Error sending message.';
 
       setState({
         type: 'error',
