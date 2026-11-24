@@ -115,18 +115,6 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           <div className="resume-item">
             <div className="resume-item-top">
-              <strong>NVIDIA AI &amp; Supercomputing Club – Galgotias University</strong>
-              <span>July 2026 – Present</span>
-            </div>
-            <p className="resume-sub">Member Technical | Noida, India</p>
-            <ul className="resume-bullets">
-              <li>Explore High-Performance Computing (HPC) concepts and NVIDIA technologies through workshops, technical sessions, and practical implementations.</li>
-              <li>Contribute to a collaborative technical community focused on innovation, knowledge sharing, and building real-world AI solutions.</li>
-            </ul>
-          </div>
-
-          <div className="resume-item">
-            <div className="resume-item-top">
               <strong>GDG On Campus – Galgotias University</strong>
               <span>Dec 2025 – Present</span>
             </div>
@@ -136,6 +124,18 @@ export default function ResumeModal({ isOpen, onClose }) {
               <li>Developed dynamic routing and reusable components, enabling scalable content delivery.</li>
               <li>Enhanced UI/UX by resolving layout issues and optimizing page transitions.</li>
               <li>Followed GitHub-based collaboration, issue tracking, and pull request best practices.</li>
+            </ul>
+          </div>
+
+          <div className="resume-item">
+            <div className="resume-item-top">
+              <strong>GirlScript Summer of Code (GSSoC)</strong>
+              <span>May 2026 – Aug 2026</span>
+            </div>
+            <p className="resume-sub">Open Source Contributor | Remote</p>
+            <ul className="resume-bullets">
+              <li>Contributed to active open-source repositories by developing accessible UI features, fixing bugs, and improving responsiveness.</li>
+              <li>Collaborated with community maintainers via GitHub pull requests, structured issue discussions, and code reviews.</li>
             </ul>
           </div>
 

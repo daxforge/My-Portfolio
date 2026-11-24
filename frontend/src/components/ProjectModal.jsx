@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from 'react';
-import { ExternalLink, Github, X, CheckCircle2, Cpu, Wrench, Target } from 'lucide-react';
+import { ExternalLink, Github, X, CheckCircle2, Cpu, Wrench, Target, Sparkles } from 'lucide-react';
 
 export default function ProjectModal({ project, onClose }) {
   const dialogRef = useRef(null);
+  const previouslyFocusedRef = useRef(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
     if (project && !dialog.open) {
+      previouslyFocusedRef.current = document.activeElement;
       dialog.showModal();
     } else if (!project && dialog.open) {
       dialog.close();
@@ -16,9 +18,12 @@ export default function ProjectModal({ project, onClose }) {
 
     const handleClose = () => {
       onClose();
+      if (previouslyFocusedRef.current && typeof previouslyFocusedRef.current.focus === 'function') {
+        previouslyFocusedRef.current.focus();
+      }
     };
 
-    // Modern Web Guidance fallback for light-dismiss on browsers without native closedby support
+    // Fallback for light-dismiss on backdrop click
     const handleBackdropClick = (event) => {
       if (event.target !== dialog) return;
       const rect = dialog.getBoundingClientRect();
@@ -50,6 +55,7 @@ export default function ProjectModal({ project, onClose }) {
       className="project-dialog"
       closedby="any"
       aria-labelledby="project-dialog-title"
+      aria-describedby="project-dialog-tagline"
     >
       <div className="dialog-header">
         <div className="dialog-badge-group">
@@ -67,7 +73,7 @@ export default function ProjectModal({ project, onClose }) {
 
       <div className="dialog-content">
         <h2 id="project-dialog-title">{project.title}</h2>
-        <p className="dialog-tagline">{project.tagline || project.description}</p>
+        <p id="project-dialog-tagline" className="dialog-tagline">{project.tagline || project.description}</p>
 
         <div className="dialog-actions">
           {project.demo && (
@@ -92,6 +98,23 @@ export default function ProjectModal({ project, onClose }) {
           )}
         </div>
 
+        {/* KEY CAPABILITIES */}
+        {project.highlights && project.highlights.length > 0 && (
+          <div className="dialog-highlights-section">
+            <div className="meta-heading">
+              <Sparkles size={16} /> <span>Key Capabilities</span>
+            </div>
+            <ul className="dialog-capabilities-list">
+              {project.highlights.map((item) => (
+                <li key={item}>
+                  <CheckCircle2 size={15} className="capability-check" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="dialog-meta-grid">
           <div className="meta-card">
             <div className="meta-heading"><Target size={17} /> <span>The Problem</span></div>
@@ -99,7 +122,12 @@ export default function ProjectModal({ project, onClose }) {
           </div>
 
           <div className="meta-card">
-            <div className="meta-heading"><Cpu size={17} /> <span>My Role & Architecture</span></div>
+            <div className="meta-heading"><CheckCircle2 size={17} /> <span>The Solution</span></div>
+            <p>{project.solution || project.decisions}</p>
+          </div>
+
+          <div className="meta-card">
+            <div className="meta-heading"><Cpu size={17} /> <span>Role & Architecture</span></div>
             <p>{project.role}</p>
           </div>
 
@@ -107,15 +135,10 @@ export default function ProjectModal({ project, onClose }) {
             <div className="meta-heading"><Wrench size={17} /> <span>Technical Decisions</span></div>
             <p>{project.decisions}</p>
           </div>
-
-          <div className="meta-card">
-            <div className="meta-heading"><CheckCircle2 size={17} /> <span>Measurable Outcome</span></div>
-            <p>{project.outcome}</p>
-          </div>
         </div>
 
         <div className="dialog-stack">
-          <h4>Technologies Used</h4>
+          <h4>Core Technologies</h4>
           <div className="tags">
             {project.stack.map((tech) => (
               <span key={tech}>{tech}</span>

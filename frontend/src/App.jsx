@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
+  CheckCircle2,
   Download,
   ExternalLink,
   FileText,
@@ -89,6 +90,136 @@ function ScrambleName({ text }) {
   );
 }
 
+function ProjectVisualPreview({ project }) {
+  if (project.title === 'DailyForge') {
+    return (
+      <div className="preview-canvas preview-dailyforge" aria-hidden="true">
+        <div className="mock-schedule-header">
+          <span className="mock-day active">Mon</span>
+          <span className="mock-day">Tue</span>
+          <span className="mock-day">Wed</span>
+          <span className="mock-day">Thu</span>
+          <span className="mock-day">Fri</span>
+          <div className="mock-conflict-badge">
+            <span className="mock-dot" /> 0 Conflicts
+          </div>
+        </div>
+        <div className="mock-schedule-grid">
+          <div className="mock-time-col">
+            <span>09:00</span>
+            <span>11:30</span>
+            <span>14:00</span>
+          </div>
+          <div className="mock-blocks-col">
+            <div className="mock-block accent-violet">
+              <strong>DSA & Systems Routine</strong>
+              <span>90 min · Sub-100ms Updates</span>
+            </div>
+            <div className="mock-block accent-cyan">
+              <strong>MERN Routine Engine</strong>
+              <span>120 min · Conflict Guard Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.title === 'AI Spend Audit Tool') {
+    return (
+      <div className="preview-canvas preview-spend-tool" aria-hidden="true">
+        <div className="mock-analytics-kpis">
+          <div className="mock-kpi">
+            <span>Audited Tokens</span>
+            <strong>142.5K</strong>
+          </div>
+          <div className="mock-kpi">
+            <span>Model Spend</span>
+            <strong>$14.20</strong>
+          </div>
+          <div className="mock-kpi highlight">
+            <span>Opt. Insights</span>
+            <strong>32% Saved</strong>
+          </div>
+        </div>
+        <div className="mock-bars-container">
+          <div className="mock-bar-row">
+            <span>Claude 3.5</span>
+            <div className="mock-bar-track">
+              <div className="mock-bar-fill fill-blue" style={{ width: '68%' }} />
+            </div>
+            <span className="mock-bar-val">$8.12</span>
+          </div>
+          <div className="mock-bar-row">
+            <span>GPT-4o</span>
+            <div className="mock-bar-track">
+              <div className="mock-bar-fill fill-violet" style={{ width: '48%' }} />
+            </div>
+            <span className="mock-bar-val">$4.80</span>
+          </div>
+          <div className="mock-bar-row">
+            <span>Gemini 1.5</span>
+            <div className="mock-bar-track">
+              <div className="mock-bar-fill fill-cyan" style={{ width: '22%' }} />
+            </div>
+            <span className="mock-bar-val">$1.28</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.title === 'Eventra') {
+    return (
+      <div className="preview-canvas preview-eventra" aria-hidden="true">
+        <div className="mock-event-head">
+          <div className="mock-event-info">
+            <strong>Campus Tech Summit</strong>
+            <span>Spring Boot REST Backend Sync</span>
+          </div>
+          <span className="mock-status-chip">Live Verified</span>
+        </div>
+        <div className="mock-event-stats">
+          <div className="mock-event-progress">
+            <div className="mock-progress-labels">
+              <span>Attendee Registration</span>
+              <span>185 / 200 Passes</span>
+            </div>
+            <div className="mock-progress-track">
+              <div className="mock-progress-fill" style={{ width: '92%' }} />
+            </div>
+          </div>
+          <div className="mock-pass-badge">
+            <span className="mock-pass-dot" /> Digital QR Pass Generated
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="preview-canvas preview-studymate" aria-hidden="true">
+      <div className="mock-search-bar">
+        <span className="mock-search-icon">🔍</span>
+        <span className="mock-search-text">Search syllabus, PYQs, subject codes...</span>
+        <span className="mock-search-badge">Instant</span>
+      </div>
+      <div className="mock-study-filters">
+        <span className="mock-filter-chip active">All Subjects</span>
+        <span className="mock-filter-chip">Algorithms</span>
+        <span className="mock-filter-chip">Operating Systems</span>
+      </div>
+      <div className="mock-doc-row">
+        <div className="mock-doc-badge">PDF</div>
+        <div className="mock-doc-details">
+          <strong>B.Tech CSE Semester 3 · Verified Question Papers</strong>
+          <span>Galgotias University Syllabus Repo</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -116,6 +247,16 @@ export default function App() {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
 
   const goTo = (section) => {
     document.getElementById(section.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
@@ -146,10 +287,32 @@ export default function App() {
             className={`nav-links ${menuOpen ? 'open' : ''}`}
           >
             {navItems.map((item) => (
-              <button key={item} onClick={() => goTo(item)}>
+              <button key={item} onClick={() => goTo(item)} className="nav-item-btn">
                 {item}
               </button>
             ))}
+            <div className="mobile-menu-footer">
+              <button
+                className="nav-resume-btn mobile-resume-btn"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setResumeOpen(true);
+                }}
+              >
+                <FileText size={15} /> Resume
+              </button>
+              <div className="mobile-socials">
+                <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub Profile">
+                  <Github size={18} />
+                </a>
+                <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
+                  <Linkedin size={18} />
+                </a>
+                <a href={`mailto:${profile.email}`} aria-label="Send Email">
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
           </div>
 
           <div className="nav-actions">
@@ -267,7 +430,7 @@ export default function App() {
           <SectionHeading
             eyebrow="01 / Featured Projects"
             title="Real products, shipped code, and live demos."
-            copy="Open-source applications and full-stack solutions built with modern web technologies, AI integrations, and resilient architecture."
+            copy="Open-source applications and Full-Stack solutions built with modern web technologies, AI integrations, and resilient architecture."
           />
 
           <div className="projects-grid">
@@ -281,10 +444,10 @@ export default function App() {
                   <span className="project-status">{project.status}</span>
                 </div>
 
-                {/* PRODUCT MOCKUP FRAME (Replaces gradient orbs) */}
+                {/* PRODUCT MOCKUP FRAME */}
                 <div className="project-preview-frame">
                   <div className="browser-chrome">
-                    <div className="browser-dots">
+                    <div className="browser-dots" aria-hidden="true">
                       <i /><i /><i />
                     </div>
                     <div className="browser-url-bar">
@@ -296,18 +459,30 @@ export default function App() {
                   </div>
 
                   <div className="project-preview-stage">
-                    <span className="stage-pill">{project.stack[0]}</span>
-                    <h4>{project.title}</h4>
-                    <p className="stage-tagline">{project.tagline}</p>
-                    <div className="stage-metric-badge">{project.metrics}</div>
+                    <ProjectVisualPreview project={project} />
                   </div>
                 </div>
 
                 <div className="project-body">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
+                  <div className="project-body-header">
+                    <h3>{project.title}</h3>
+                    <p className="project-tagline">{project.tagline}</p>
+                  </div>
+                  <p className="project-desc">{project.description}</p>
 
-                  <div className="tags">
+                  {/* Highlights Row */}
+                  {project.highlights && project.highlights.length > 0 && (
+                    <div className="project-highlights" aria-label={`Key highlights of ${project.title}`}>
+                      {project.highlights.map((highlight) => (
+                        <div key={highlight} className="project-highlight-item">
+                          <CheckCircle2 size={13} className="highlight-icon" aria-hidden="true" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="tags" aria-label="Tech stack">
                     {project.stack.map((tag) => (
                       <span key={tag}>{tag}</span>
                     ))}
@@ -337,6 +512,8 @@ export default function App() {
                     <button
                       className="project-action-link case-study-action"
                       onClick={() => setSelectedProject(project)}
+                      aria-haspopup="dialog"
+                      aria-label={`Open case study details for ${project.title}`}
                     >
                       <FileText size={14} /> Case Study
                     </button>
@@ -440,17 +617,48 @@ export default function App() {
         {/* FOCUS AREAS */}
         <section id="focus" className="section focus-section">
           <SectionHeading
-            eyebrow="05 / Focus"
-            title="Where I like to make things happen."
-            copy="Key technical domains I actively invest engineering hours into."
+            eyebrow="05 / FOCUS"
+            title="What I’m building depth in."
+            copy="The product, AI, and community spaces where I’m turning curiosity into shipped work."
           />
 
           <div className="focus-grid">
-            {focusAreas.map(({ icon: Icon, title, text }) => (
-              <article className="focus-card reveal" key={title}>
-                <Icon size={24} />
-                <h3>{title}</h3>
-                <p>{text}</p>
+            {focusAreas.map(({ index, icon: Icon, title, text, evidence, tags }) => (
+              <article
+                className="focus-card reveal"
+                key={title}
+                tabIndex={0}
+                aria-label={`${title}: ${text}. Evidence: ${evidence}.`}
+              >
+                <span className="focus-card-numeral" aria-hidden="true">{index}</span>
+
+                <div className="focus-card-top">
+                  <div className="focus-icon-box">
+                    <Icon size={20} aria-hidden="true" />
+                  </div>
+                  <span className="focus-index-label" aria-hidden="true">/{index}</span>
+                </div>
+
+                <div className="focus-card-main">
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+
+                <div className="focus-card-bottom">
+                  <div className="focus-evidence-tag" title={`Shipped evidence: ${evidence}`}>
+                    <span className="focus-evidence-indicator" aria-hidden="true" />
+                    <span className="focus-evidence-label">Evidence</span>
+                    <span className="focus-evidence-name">{evidence}</span>
+                  </div>
+
+                  <div className="focus-tech-tags" aria-label={`Technologies for ${title}`}>
+                    {tags.map((tag) => (
+                      <span key={tag} className="focus-tech-pill">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </article>
             ))}
           </div>
