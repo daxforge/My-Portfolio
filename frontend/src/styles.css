@@ -180,6 +180,10 @@ header {
   color: white;
 }
 
+.mobile-menu-footer {
+  display: none;
+}
+
 .nav-actions {
   border-left: 1px solid rgba(255, 255, 255, .12);
   padding-left: 18px;
